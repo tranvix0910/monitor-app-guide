@@ -58,13 +58,13 @@ Khi Prometheus phát hiện sự cố, nó sẽ gửi tín hiệu cho **Alertman
 Bạn cần cài đặt các quy tắc (Rule) và luồng điều hướng (Route) vào cụm Kubernetes của bạn:
 ```bash
 # 1. Kích hoạt SLO Burn Rate Alerts
-kubectl apply -f "WineApp-Deploy-K8s/wineapp-alerts.yaml"
+kubectl apply -f "../wineapp-manifest/wineapp-alerts.yaml"
 
 # 2. Kích hoạt Cảnh báo Hạ tầng Cơ bản (CPU, RAM, Pod Down)
-kubectl apply -f "WineApp-Deploy-K8s/wineapp-infra-alerts.yaml"
+kubectl apply -f "../wineapp-manifest/wineapp-infra-alerts.yaml"
 
 # 3. Kích hoạt Luồng điều hướng gửi tin nhắn (Alertmanager)
-kubectl apply -f "WineApp-Deploy-K8s/alertmanager-config.yaml"
+kubectl apply -f "../wineapp-manifest/alertmanager-config.yaml"
 ```
 
 ### Bước 2: Diễn tập (Chaos Engineering)

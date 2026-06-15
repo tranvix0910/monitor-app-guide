@@ -49,7 +49,7 @@ Sau khi đã có 2 bí kíp trên trong tay, bạn hãy mở file **`alertmanage
 2. **Ở cấu hình AlertmanagerConfig:** Tìm 2 dòng `chatId: 123456789` và thay thế con số bằng ID thật của bạn vừa lấy ở **Bước 3**.
 3. Cuối cùng, chạy lệnh áp dụng vào K8s:
 ```bash
-kubectl apply -f "WineApp-Deploy-K8s/alertmanager-config.yaml"
+kubectl apply -f "../wineapp-manifest/alertmanager-config.yaml"
 ```
 
 Chúc mừng bạn! Từ nay mọi sự cố cháy nổ của hệ thống sẽ nhảy thẳng vào Telegram của bạn một cách nhanh nhất!

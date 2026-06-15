@@ -19,7 +19,7 @@ Dự án WineApp được thiết kế theo kiến trúc Microservices cơ bản
 
 ## Phần 2: Triển Khai Ứng Dụng lên Kubernetes
 
-Toàn bộ cấu hình của ứng dụng nằm trong file `WineApp-Deploy-K8s/wineapp-k8s.yaml`.
+Toàn bộ cấu hình của ứng dụng nằm trong file `../wineapp-manifest/wineapp-k8s.yaml`.
 
 ### 1. Lưu ý quan trọng về Mongo Exporter
 Trong quá trình triển khai, việc chọn đúng phiên bản Exporter là cực kỳ quan trọng để tránh lỗi `CrashLoopBackOff` hoặc `exec format error` (lỗi kiến trúc chip ARM/AMD).
@@ -42,7 +42,7 @@ Cấu hình chuẩn nhất cho Exporter của Mongo 4.2 là:
 ### 2. Thực thi triển khai
 Sử dụng lệnh sau để đẩy toàn bộ ứng dụng lên K8s:
 ```bash
-kubectl apply -f "WineApp-Deploy-K8s/wineapp-k8s.yaml"
+kubectl apply -f "../wineapp-manifest/wineapp-k8s.yaml"
 ```
 Kiểm tra lại xem các Pod đã ở trạng thái `Running` (đặc biệt là Pod Mongo phải hiện `Ready 2/2`):
 ```bash
@@ -70,7 +70,7 @@ metadata:
 
 ### 2. Thực thi kết nối
 ```bash
-kubectl apply -f "WineApp-Deploy-K8s/wineapp-servicemonitor.yaml"
+kubectl apply -f "../wineapp-manifest/wineapp-servicemonitor.yaml"
 ```
 
 ### 3. Nghiệm thu trên Prometheus

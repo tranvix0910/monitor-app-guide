@@ -354,7 +354,7 @@ kubectl apply -f node-exporter-ingress.yaml
 > **Mục đích:** Đưa Frontend, Backend, và MongoDB lên K8s.
 
 ```bash
-kubectl apply -f "WineApp-Deploy-K8s/wineapp-k8s.yaml"
+kubectl apply -f "../wineapp-manifest/wineapp-k8s.yaml"
 ```
 
 Kiểm tra:
@@ -388,7 +388,7 @@ kubectl get pods -n wineapp
 > **⚠️ Cảnh báo quan trọng nhất:** Label `release: prometheus` trong metadata là BẮT BUỘC. Nếu thiếu, Prometheus sẽ phớt lờ hoàn toàn file này.
 
 ```bash
-kubectl apply -f "WineApp-Deploy-K8s/wineapp-servicemonitor.yaml"
+kubectl apply -f "../wineapp-manifest/wineapp-servicemonitor.yaml"
 ```
 
 Nghiệm thu trên Prometheus UI → **Status → Targets**:
@@ -463,7 +463,7 @@ Dashboard được chia 3 **Rows** theo luồng dữ liệu:
 **File 1: SLO Burn Rate Alerts** — Kỹ thuật đỉnh cao của Google SRE
 
 ```bash
-kubectl apply -f "WineApp-Deploy-K8s/wineapp-alerts.yaml"
+kubectl apply -f "../wineapp-manifest/wineapp-alerts.yaml"
 ```
 
 Hai loại cảnh báo Burn Rate:
@@ -473,7 +473,7 @@ Hai loại cảnh báo Burn Rate:
 **File 2: Infrastructure Alerts** — Cảnh báo hạ tầng cơ bản
 
 ```bash
-kubectl apply -f "WineApp-Deploy-K8s/wineapp-infra-alerts.yaml"
+kubectl apply -f "../wineapp-manifest/wineapp-infra-alerts.yaml"
 ```
 
 | Alert | Điều kiện | Severity |
@@ -503,10 +503,10 @@ Inactive → (Điều kiện vi phạm) → Pending → (Qua mốc "for:") → F
 
 ### Bước 6.3 — Cấu Hình Alertmanager (Gửi Thông Báo Telegram)
 
-Cập nhật file `WineApp-Deploy-K8s/alertmanager-config.yaml` với Bot Token và Chat ID thực tế của bạn, sau đó:
+Cập nhật file `../wineapp-manifest/alertmanager-config.yaml` với Bot Token và Chat ID thực tế của bạn, sau đó:
 
 ```bash
-kubectl apply -f "WineApp-Deploy-K8s/alertmanager-config.yaml"
+kubectl apply -f "../wineapp-manifest/alertmanager-config.yaml"
 ```
 
 Cơ chế điều hướng (Routing):
@@ -576,13 +576,13 @@ helm install prometheus prometheus-community/kube-prometheus-stack -n monitoring
 kubectl apply -f observability-ingress.yaml
 
 # ===== APPLICATION =====
-kubectl apply -f "WineApp-Deploy-K8s/wineapp-k8s.yaml"
-kubectl apply -f "WineApp-Deploy-K8s/wineapp-servicemonitor.yaml"
+kubectl apply -f "../wineapp-manifest/wineapp-k8s.yaml"
+kubectl apply -f "../wineapp-manifest/wineapp-servicemonitor.yaml"
 
 # ===== ALERTING =====
-kubectl apply -f "WineApp-Deploy-K8s/wineapp-alerts.yaml"
-kubectl apply -f "WineApp-Deploy-K8s/wineapp-infra-alerts.yaml"
-kubectl apply -f "WineApp-Deploy-K8s/alertmanager-config.yaml"
+kubectl apply -f "../wineapp-manifest/wineapp-alerts.yaml"
+kubectl apply -f "../wineapp-manifest/wineapp-infra-alerts.yaml"
+kubectl apply -f "../wineapp-manifest/alertmanager-config.yaml"
 
 # ===== VERIFY =====
 kubectl get pods -n wineapp

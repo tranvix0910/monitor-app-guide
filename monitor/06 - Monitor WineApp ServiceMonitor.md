@@ -20,7 +20,7 @@ WineApp có **3 thành phần** cần giám sát, mỗi thành phần một Serv
 
 ## 2. File cấu hình ServiceMonitor
 
-File `WineApp-Deploy-K8s/wineapp-servicemonitor.yaml` khai báo cả 3 monitor:
+File `../wineapp-manifest/wineapp-servicemonitor.yaml` khai báo cả 3 monitor:
 
 ```yaml
 # --- ServiceMonitor cho Frontend (Nginx Exporter) ---
@@ -82,7 +82,7 @@ spec:
 ## 3. Áp dụng cấu hình vào cụm
 
 ```bash
-kubectl apply -f "WineApp-Deploy-K8s/wineapp-servicemonitor.yaml"
+kubectl apply -f "../wineapp-manifest/wineapp-servicemonitor.yaml"
 ```
 
 ---
