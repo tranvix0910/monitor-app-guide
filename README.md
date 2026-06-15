@@ -2,7 +2,27 @@
 
 Bộ tài liệu hướng dẫn xây dựng hệ thống giám sát (Observability) từ đầu đến cuối cho dự án **WineApp** trên Kubernetes, đạt chuẩn **Google SRE**. Bao gồm: Prometheus, Grafana, Alertmanager, và tích hợp thông báo qua Telegram.
 
-![Architecture](./assets/Architecture.png)
+> ⚠️ **Phải hoàn thành Phase 1 trước!** Cụm Kubernetes phải đang chạy mới có thể thực hiện các bước trong repo này.
+> 👉 **[LabServers Repository](https://github.com/tranvix0910/LabServers)** — Vagrant + VMware · K8s v1.30 · HAProxy · 1 Master + 2 Workers
+
+---
+
+## 📌 Vị Trí Trong Hệ Thống
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│   PHASE 1: 🏠 LabServers (tranvix0910/LabServers)              │
+│   Vagrant · VMware · K8s v1.30 · Calico CNI                │
+│   IPs: .100 (HAProxy) .101 (Master) .102-.103 (Workers)     │
+└─────────────────────────────┬────────────────────────────────┘
+                              │ vagrant up
+                              ▼
+┌──────────────────────────────────────────────────────────────┐
+│   PHASE 2: 🔭 Observability (tranvix0910/Observability) ← Bạn đang ở đây │
+│   Prometheus · Grafana · Alertmanager · WineApp · Telegram    │
+└──────────────────────────────────────────────────────────────┘
+```
+
 
 ---
 
