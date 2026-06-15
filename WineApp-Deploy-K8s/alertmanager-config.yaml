@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: telegram-bot-token
+  namespace: wineapp
+type: Opaque
+stringData:
+  bot_token: "8835965741:AAHGco3SM24XWMRgPVyQG0A-fIe6ycqdZVI"
+
+---
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: wineapp-alert-routing
+  namespace: wineapp
+  labels:
+    release: prometheus # Khớp với nhãn của Prometheus Operator
+spec:
+  # 1. ROUTE (Điều hướng)
+  route:
+    groupBy: ['alertname', 'severity']
+    groupWait: 30s      # Đợi 30s xem có lỗi nào giống nhau không thì gộp lại
+    groupInterval: 5m   # 5 phút gửi 1 lần nếu có lỗi mới cùng nhóm
+    repeatInterval: 4h  # Lỗi chưa được sửa thì 4 tiếng sau gửi réo lại
+    receiver: 'telegram-warning' # Mặc định đẩy vào kênh warning
+    routes:
+      - matchers:
+          - name: severity
+            value: critical
+        receiver: 'telegram-critical' # Lỗi khẩn cấp đẩy vào kênh critical
+      - matchers:
+          - name: severity
+            value: warning
+        receiver: 'telegram-warning'
+
+  # 2. RECEIVERS (Cấu hình nơi nhận)
+  receivers:
+    - name: 'telegram-critical'
+      telegramConfigs:
+        - botToken:
+            name: telegram-bot-token
+            key: bot_token
+          chatID: 1281777025
+          sendResolved: true
+          parseMode: HTML
+          message: |-
+            🚨 <b>[{{ .Status | toUpper }}] {{ .GroupLabels.alertname }}</b>
+            {{ range .Alerts }}
+            <b>Chi tiết:</b> {{ .Annotations.summary }}
+            <b>Mô tả:</b> {{ .Annotations.description }}
+            {{ end }}
+
+    - name: 'telegram-warning'
+      telegramConfigs:
+        - botToken:
+            name: telegram-bot-token
+            key: bot_token
+          chatID: 1281777025
+          sendResolved: true
+          parseMode: HTML
+          message: |-
+            ⚠️ <b>[{{ .Status | toUpper }}] {{ .GroupLabels.alertname }}</b>
+            {{ range .Alerts }}
+            <b>Chi tiết:</b> {{ .Annotations.summary }}
+            <b>Mô tả:</b> {{ .Annotations.description }}
+            {{ end }}

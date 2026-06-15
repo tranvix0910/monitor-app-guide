@@ -1,0 +1,46 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: wineapp-mongo-monitor
+  namespace: wineapp
+  labels:
+    release: prometheus # Default label for kube-prometheus-stack
+spec:
+  selector:
+    matchLabels:
+      app: wineapp-mongo
+  endpoints:
+  - port: metrics
+    interval: 15s
+
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: wineapp-backend-monitor
+  namespace: wineapp
+  labels:
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: wineapp-backend
+  endpoints:
+  - port: metrics
+    interval: 15s
+
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: wineapp-frontend-monitor
+  namespace: wineapp
+  labels:
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: wineapp-frontend
+  endpoints:
+  - port: metrics
+    interval: 15s

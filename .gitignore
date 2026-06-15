@@ -1,0 +1,15 @@
+# Nested git repos (separate projects with their own repos)
+wineapp-backend/
+wineapp-frontend/
+
+# Sensitive files
+.env
+*.env.local
+*.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
